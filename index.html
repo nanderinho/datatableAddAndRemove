@@ -32,7 +32,7 @@
                         <option value="">Pasta 2</option>
                     </select> -->
 
-                    
+
                     <table id="example" class="display" style="width:100%">
                         <thead>
                             <tr>
@@ -41,7 +41,8 @@
                                 <th>CPF</th>
                                 <th>E-mail</th>
                                 <th>Ordem</th>
-                                <th><button id="addRow" class="btn btn-success"><i class="fa-solid fa-plus"></i></button></th>
+                                <th><button id="addRow" class="btn btn-success"><i
+                                            class="fa-solid fa-plus"></i></button></th>
                             </tr>
                         </thead>
                         <!--  <tfoot>
@@ -57,18 +58,18 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-primary">Enviar</button>
+                    <button id="Enviar" type="button" class="btn btn-primary">Enviar</button>
                 </div>
             </div>
         </div>
     </div>
 
+
+
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Abrir
     </button>
-
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
@@ -109,11 +110,11 @@
 
             $('#addRow').on('click', function () {
                 t.row.add([
-                    '<select class="form-control" name="" id="cmbTipoParticipante"><option value="Signatario">Signatário</option><option value="Aprovador">Aprovador</option><option value="Observador">Observador</option></select>',
-                    '<input type="text" class="form-control" placeholder="Nome">',
-                    '<input type="text" class="form-control" placeholder="CPF">',
-                    '<input type="email" class="form-control" placeholder="E-mail">',
-                    '<select class="form-control" name="" id="cmbTipoParticipante"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select>',
+                    '<select class="form-control dados" name="" id="cmbTipoParticipante"><option value="Signatario">Signatário</option><option value="Aprovador">Aprovador</option><option value="Observador">Observador</option></select>',
+                    '<input type="text" class="form-control dados" placeholder="Nome">',
+                    '<input type="text" class="form-control dados" placeholder="CPF">',
+                    '<input type="email" class="form-control dados" placeholder="E-mail">',
+                    '<select class="form-control dados" name="" id="cmbTipoParticipante"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select>',
                     '<i class="fa fa-minus btn btn-danger idel" aria-hidden="true"></i>'
                 ]).draw(false);
 
@@ -132,7 +133,46 @@
             });
 
 
+            //Pega dados da tabela linha por linha e transforma em JSON
+            $('#Enviar').on('click', function (event) {
+
+                let elemento = document.getElementsByClassName('dados')
+
+                let arr = []
+                var totalLinhas = t.rows()[0]
+                var count = 0
+
+                console.log(totalLinhas)
+
+                //for (let index = 0; index < totalLinhas; index++) {
+                //elemento.length
+                for (let i = 0; i < elemento.length; i += 5) {
+
+                    arr.push({
+                        'tipo': elemento[i + 0].value,
+                        'nome': elemento[i + 1].value,
+                        'cpf': elemento[i + 2].value,
+                        'email': elemento[i + 3].value,
+                        'ordem': elemento[i + 4].value,
+                    })
+
+
+                }
+                console.log(arr)
+
+
+                //     for (let i = 0; i < elemento.length; i++) {
+                //         arr.push({
+                //             'valor': elemento[i].value
+                //         })
+
+                //     }
+
+            });
+
         });
+
+        //Pega valor das linhas do datatable e monta um JSON com os dados
 
 
 
